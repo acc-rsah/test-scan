@@ -69,7 +69,11 @@ const Scanner = () => {
 
     const startScan = React.useCallback((cameraId) => {
         const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-            setDecodedResult((prev) => [...prev, decodedResult]);
+            setDecodedResult((prev) => {
+                if (prev?.result?.text !== decodedResult?.result?.text)
+                    return [prev, decodedResult];
+                //return [prev, decodedResult];
+            });
         };
 
         html5QrCode.start(
